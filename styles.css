@@ -903,8 +903,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Botões de navegação do carrossel (desktop) */
 .installs-nav {
   position: absolute;
-  top: 33%;
+  top: 50%;
   transform: translateY(-50%);
+  opacity: 0.45;          /* discreta, não atrapalha o card */
   width: 48px; height: 48px;
   border-radius: 50%;
   border: none;
@@ -916,10 +917,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   align-items: center;
   justify-content: center;
   z-index: 99;   /* acima da borda animada do card em destaque */
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, opacity .2s ease;
 }
 .installs-nav svg { width: 24px; height: 24px; stroke: currentColor; }
-.installs-nav:hover { background: var(--text-gray); color: #fff; box-shadow: var(--shadow-strong); }
+.installs-nav:hover { background: var(--text-gray); color: #fff; box-shadow: var(--shadow-strong); opacity: 1; }
 .installs-nav:active { transform: translateY(-50%) scale(.94); }
 .installs-nav--prev { left: 18px; }
 .installs-nav--next { right: 18px; }
