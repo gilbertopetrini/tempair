@@ -1,0 +1,216 @@
+[Cabeçalho / Header]
+Logo: Temp Air - Especialistas em Refrigeração
+
+Menu Simples: Início | Serviços | Diferenciais | Contato
+
+Botão de Destaque (Fixo): 🟢 Fale Conosco pelo WhatsApp
+
+[Seção 1: Banner Principal / Hero Section]
+(Esta é a primeira coisa que o cliente verá. O foco é resolver a "dor" dele imediatamente: o calor ou o equipamento quebrado).
+
+Título Principal (Headline): O Clima Perfeito para a Sua Casa ou Empresa!
+
+Subtítulo: Especialistas em instalação, manutenção e higienização de sistemas de ar-condicionado. Serviço rápido, sem sujeira e com garantia total.
+
+Botão de Ação Primário (CTA): 🛠️ Solicitar Orçamento Sem Compromisso
+
+Prova Social Rápida (Abaixo do botão): ⭐⭐⭐⭐⭐ Atendimento ágil e profissionais qualificados.
+
+[Seção 2: Nossos Serviços]
+(Área dividida em blocos ou "cards" para facilitar a leitura).
+
+Título da Seção: Soluções Completas em Climatização
+
+Card 1: Instalação de Ar-Condicionado
+
+Texto: Trabalhamos com todas as marcas e modelos (Split, Inverter, Piso Teto e Cassete). Instalação rigorosa seguindo os padrões dos fabricantes para garantir a durabilidade do seu aparelho e a validade da sua garantia.
+
+Card 2: Manutenção Preventiva e Corretiva
+
+Texto: O seu aparelho parou de gelar, está vazando água ou fazendo barulho? Identificamos e resolvemos o problema rapidamente. Também realizamos manutenções periódicas para evitar surpresas no alto verão.
+
+Card 3: Limpeza e Higienização
+
+Texto: Proteja sua saúde e da sua família. Realizamos a limpeza profunda do seu equipamento, eliminando fungos, bactérias e ácaros. Um aparelho limpo gela mais, melhora a qualidade do ar e reduz a conta de luz.
+
+Card 4: Infraestrutura para Obras
+
+Texto: Vai construir ou reformar? Preparamos toda a tubulação e infraestrutura técnica necessária para receber os equipamentos de ar-condicionado de forma embutida e estética.
+
+[Seção 3: Por que escolher a Temp Air?]
+(Foco nos diferenciais para convencer o cliente a não buscar a concorrência).
+
+Título da Seção: Qualidade e Confiança que Fazem a Diferença
+
+Item 1: 🥇 Equipe Especializada
+
+Técnicos treinados, uniformizados e atualizados com as mais novas tecnologias do mercado de refrigeração.
+
+Item 2: ⚡ Atendimento Ágil
+
+Sabemos que o calor não espera. Oferecemos um atendimento rápido e eficiente em todo o Rio de Janeiro e região metropolitana.
+
+Item 3: 💰 Preço Justo e Transparência
+
+Orçamentos claros e detalhados, sem taxas ocultas. Você sabe exatamente pelo que está pagando antes do serviço começar.
+
+Item 4: 🛡️ Garantia de Serviço
+
+Tranquilidade total para você. Todos os nossos serviços contam com garantia de qualidade e suporte pós-atendimento.
+
+[Seção 4: Faixa de Conversão / CTA Intermediário]
+(Uma quebra visual com fundo escuro ou cor vibrante para chamar atenção de quem está rolando a página).
+
+Título: Seu ar-condicionado está consumindo muita energia ou não gela como antes?
+
+Texto: Não deixe um problema simples se transformar em um conserto caro. Nossa equipe está pronta para avaliar seu equipamento hoje mesmo.
+
+Botão de Ação (CTA): 📱 Chamar um Técnico Agora
+
+[Seção 5: Marcas que Trabalhamos]
+(Gera autoridade e confiança no cliente)
+
+Título da Seção: Especialistas nas Melhores Marcas do Mercado
+
+(Espaço para colocar os logos: LG, Samsung, Midea, Daikin, Gree, Consul, Springer, Elgin, etc.)
+
+[Seção 6: Rodapé / Footer]
+Sobre: Temp Air – Excelência em climatização e refrigeração. O seu conforto é o nosso compromisso.
+
+Contatos:
+
+📞 Telefone/WhatsApp: (XX) XXXXX-XXXX
+
+✉️ E-mail: contato@tempair.com.br
+
+Horário de Funcionamento:
+
+Segunda a Sexta: 08:00 às 18:00
+
+Sábados: 08:00 às 12:00
+
+Redes Sociais: [Ícone Instagram] [Ícone Facebook]
+
+Copyright: © 2026 Temp Air Refrigeração. Todos os direitos reservados.
+
+1. Cores
+A paleta é baseada em tons de azul e branco para transmitir limpeza, tecnologia e profissionalismo, com toques de cores de acento para estados de sucesso e alerta.
+
+Paleta Principal (Branding e Fundos Suaves):
+
+Azul de Texto Principal (Deep Brand Blue): #1565C0 (Usado para o texto "Social Media" e títulos principais).
+
+Azul Suave de Fundo (Light Background Blue): #E3F2FD (Usado para fundos de seções suaves e destaques).
+
+Branco de Fundo (Main Background White): #FFFFFF (Cor de fundo principal para limpeza).
+
+Azul de Contraste (Secondary Text/Icons): #616161 (Cinza médio para corpo de texto).
+
+Paleta de Componentes (Ações e Acentos):
+
+Azul Vibrante para Gradientes de Botão (Button Action Blue): Começa em #2196F3 e vai para #80D8FF.
+
+Azul de Ícone/Detalhe: #42A5F5 (Usado para os ícones 3D suaves e detalhes de linha).
+
+Paleta de Suporte (Estados e Variações):
+
+Verde Sucesso/OK (Success Green): #4CAF50 (Como no termômetro e LEDs).
+
+Laranja Alerta/Aviso (Alert Orange): #FF9800 (Como na ponta do termômetro para aviso de calor).
+
+Roxo Acento (Optional Accent): #673AB7 (Como no floco de neve desfocado no banner principal).
+
+Gradientes (Muito Presentes):
+
+Usar gradientes suaves de azul médio para claro para fundos de cards de destaque, botões e elementos de marca, imitando o visual do banner principal.
+
+2. Tipografia
+A tipografia deve ser moderna, geométrica e sem serifa (Sans-Serif), com excelente legibilidade tanto para títulos quanto para corpos de texto.
+
+Sugestões de Fontes Similares (Google Fonts):
+
+Principal (Títulos e Marca): Poppins (Geométrica e robusta) ou Montserrat.
+
+Corpo de Texto: Roboto (Limpa e altamente legível) ou Open Sans.
+
+Hierarquia de Tipografia:
+
+H1 (Títulos Heros e de Seção Principais): Poppins/Montserrat Bold, 48px-64px.
+
+H2 (Títulos de Seção Secundários e Cards de Destaque): Poppins/Montserrat Semi-Bold, 32px-40px.
+
+H3 (Subtítulos de Cards e Seções Menores): Roboto Medium, 20px-24px.
+
+Corpo de Texto (Main Body): Roboto Regular, 16px.
+
+Legenda e Texto de Card (Caption): Roboto Regular, 14px.
+
+Texto de Botão: Poppins Medium, 16px, Caps.
+
+3. Componentes
+O estilo deve ser limpo e profissional, com foco em ações claras e confiança técnica.
+
+Botões:
+
+Estilo: Arredondado (ver regras de estética), com gradiente de azul vibrante e texto em caixa alta.
+
+Primário: Fundo de gradiente azul, texto branco (ex: "Solicitar Orçamento").
+
+Secundário (com ícone): Apenas texto azul com um ícone de seta ou marca de verificação (ex: "Saiba Mais" com seta).
+
+Estados: Hover (intensificar gradiente e sombra), Active (reduzir opacidade).
+
+Inputs de Formulário:
+
+Estilo: Simples, com bordas finas, arredondamento leve e fundo branco.
+
+Labels: Texto acima do input em Roboto Medium.
+
+Estados: Focus (borda azul mais grossa), Error (borda laranja-alerta com texto de erro).
+
+Cards (Depoimentos e Serviços):
+
+Estilo Depoimento: Container branco com sombra suave e bordas arredondadas. Inclui foto de perfil, nome, cargo e depoimento curto. (Foco em prova social).
+
+Estilo Serviço/Recurso: Container branco ou com gradiente azul suave, ícone 3D suave (ex: termômetro, floco de neve, raio) ou ícone de linha em azul, título H3 e corpo de texto curto.
+
+4. Estética e Regras
+A estética geral deve ser de suavidade, limpeza e profundidade.
+
+Regras de Arredondamento (Border-Radius):
+
+Usar arredondamentos consistentes e generosos para refletir a suavidade dos ícones 3D.
+
+Grandes Seções e Cards de Fundo: 24px-32px.
+
+Botões e Inputs: 12px-16px.
+
+Sombras (Box-Shadow):
+
+Usar sombras suaves e difusas para criar profundidade e destaque, sem serem agressivas.
+
+CSS Sugerido (Soft Depth): box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08); para cards; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05); para elementos menores.
+
+Espaçamentos (Padding/Margin):
+
+Sistema de grade baseado em 8px (ex: 8px, 16px, 24px, 32px, 48px, 64px, 96px).
+
+Espaçamento grande de seções: 96px-128px.
+
+Espaçamento interno de seções e cards: 32px-48px.
+
+Espaçamento entre elementos menores (título/corpo): 16px-24px.
+
+Texturas e Padrões de Fundo:
+
+Uso estratégico de ícones de floco de neve desfocados e nítidos como elementos de fundo para profundidade de marca.
+
+Uso de gradientes de azul suaves para fundos e componentes.
+
+Incorporação de Provas Sociais:
+
+Criar blocos de depoimentos de clientes com fotos de perfil reais e texto curto.
+
+Usar checklists com ícones de verificação (como os ícones de marca de verificação e voltar no banner) para listar garantias e qualidades de serviço.
+
+Seção de "Nossos Clientes/Marcas Atendidas" com logos limpos e organizados.
