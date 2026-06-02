@@ -277,6 +277,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   }
 }
 
+/* ≥1170px: WhatsApp do header 15% menor (estava muito extenso) */
+@media (min-width: 1170px) {
+  .header-cta .btn { min-height: 40px; padding: 9px 17px; font-size: 12px; gap: 8px; }
+  .header-cta .btn-icon { width: 17px; height: 17px; }
+}
+
 /* 768–887px: oculta "Contato" do menu horizontal
    (ele volta ao virar menu hambúrguer, abaixo de 768px) */
 @media (min-width: 768px) and (max-width: 887px) {
@@ -707,8 +713,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 26px 28px 34px;           /* folga p/ o esfumaçado dourado não ser cortado */
-  scroll-padding-left: 28px;
+  padding: 26px 16px 34px 8px;       /* 1º card encostado à esquerda; espião do próximo à direita */
+  scroll-padding-left: 8px;
   scrollbar-color: #9CCFE0 transparent;
 }
 .installs-track::-webkit-scrollbar { height: 8px; }
@@ -1048,33 +1054,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 12px 30px rgba(46,125,50,.55); }
 .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
 
-/* =========================================================
-   ANIMAÇÃO DE ENTRADA: nevasca rápida ao carregar o site
-   ========================================================= */
-.snow-intro {
-  position: fixed;
-  inset: 0;
-  z-index: 3000;
-  pointer-events: none;        /* nunca bloqueia cliques */
-  overflow: hidden;
-  animation: snow-intro-out .5s ease 3.0s forwards;  /* some no fim */
-}
-@keyframes snow-intro-out { to { opacity: 0; } }
-.snow-intro__flake {
-  position: absolute;
-  top: -10vh;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 6px 1px rgba(37, 150, 190, 0.6);   /* brilho teal p/ aparecer no branco */
-  animation-name: snow-intro-fall;
-  animation-timing-function: linear;
-  animation-iteration-count: 1;
-  animation-fill-mode: both;
-}
-@keyframes snow-intro-fall {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(var(--drift, 0), 120vh, 0); }
-}
+/* (Animação de nevasca de entrada removida — demais animações mantidas) */
 
 /* =========================================================
    ANIMAÇÕES SUTIS
