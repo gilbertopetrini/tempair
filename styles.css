@@ -716,8 +716,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .installs-track::-webkit-scrollbar-track { background: transparent; }
 
 .install-card {
-  flex: 0 0 320px;
-  max-width: 86vw;
+  flex: 0 0 290px;
+  max-width: 78vw;
   scroll-snap-align: start;
   background: #fff;
   border-radius: var(--radius-section);
@@ -906,7 +906,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--text-gray);
   box-shadow: var(--shadow-card);
   cursor: pointer;
-  display: none;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   z-index: 99;   /* acima da borda animada do card em destaque */
@@ -1049,13 +1049,32 @@ ul { margin: 0; padding: 0; list-style: none; }
 .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
 
 /* =========================================================
-   ANIMAÇÕES DESATIVADAS (site estático)
+   ANIMAÇÃO DE ENTRADA: nevasca rápida ao carregar o site
    ========================================================= */
-*, *::before, *::after { animation: none !important; }
-.reveal { opacity: 1 !important; transform: none !important; }   /* conteúdo sempre visível */
-.process-fill { transform: none !important; }                    /* traçado completo, sem desenhar */
-.process-step .process-icon,
-.process-step .process-num { transition: none !important; }
+.snow-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  pointer-events: none;        /* nunca bloqueia cliques */
+  overflow: hidden;
+  animation: snow-intro-out .5s ease 3.0s forwards;  /* some no fim */
+}
+@keyframes snow-intro-out { to { opacity: 0; } }
+.snow-intro__flake {
+  position: absolute;
+  top: -10vh;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px 1px rgba(37, 150, 190, 0.6);   /* brilho teal p/ aparecer no branco */
+  animation-name: snow-intro-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+}
+@keyframes snow-intro-fall {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(var(--drift, 0), 120vh, 0); }
+}
 
 /* =========================================================
    ANIMAÇÕES SUTIS

@@ -286,7 +286,7 @@
     }
 
     /* Movimento reduzido: mostra tudo desenhado/ativo, sem animar com o scroll */
-    setProgress(1); return;  /* estático: traçado/etapas sempre completos, sem animar no scroll */
+    if (reduceMotion) { setProgress(1); return; }
 
     var ticking = false;
     function update() {
@@ -305,5 +305,30 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     update();
+  })();
+
+  /* ---- Animação de entrada: nevasca rápida ao carregar o site ---- */
+  (function () {
+    if (reduceMotion) { return; }
+    var overlay = document.createElement('div');
+    overlay.className = 'snow-intro';
+    overlay.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < 65; i++) {
+      var f = document.createElement('span');
+      f.className = 'snow-intro__flake';
+      var size = (7 + Math.random() * 14).toFixed(1);
+      f.style.left = (Math.random() * 100).toFixed(2) + 'vw';
+      f.style.width = size + 'px';
+      f.style.height = size + 'px';
+      f.style.opacity = (0.4 + Math.random() * 0.6).toFixed(2);
+      f.style.setProperty('--drift', ((Math.random() * 2 - 1) * 16).toFixed(1) + 'vw');
+      f.style.animationDuration = (2.8 + Math.random() * 0.7).toFixed(2) + 's';
+      f.style.animationDelay = (Math.random() * 0.6).toFixed(2) + 's';
+      overlay.appendChild(f);
+    }
+    document.body.appendChild(overlay);
+    setTimeout(function () {
+      if (overlay.parentNode) { overlay.parentNode.removeChild(overlay); }
+    }, 3500);
   })();
 })();
