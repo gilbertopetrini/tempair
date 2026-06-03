@@ -62,11 +62,11 @@
     var projetos = [
       { f: true, img: "midias/Arsenal de Marinha - Concrejato.jpg", b: "VRF + Split + ar de precisão", t: "Marinha do Brasil — Arsenal de Marinha (EMGEPRON)", d: "Prédio 8. Ar condicionado de expansão direta com VRF e Split System, incluindo unidades de ar de precisão no Datacenter." },
       { f: true, vid: "midias/fairmountvideo.mp4", img: "midias/Hotel Fairmount.jpg", b: "Troca de chiller", t: "Hotel Fairmont Copacabana", d: "Substituição do chiller — o equipamento central que resfria a água gelada do sistema de climatização. Removemos a unidade antiga e instalamos um novo chiller mais eficiente, integrado à infraestrutura hidráulica e elétrica existente, elevando o desempenho, a confiabilidade e a eficiência energética da climatização do hotel." },
+      { img: "midias/hospital.jpg", b: "Hospitalar · 26.300 m²", t: "Hospital Universitário UFU — Uberlândia", d: "Obra para IBEG Engenharia e Construção. Prédio hospitalar de 26.300 m². Projeto de ar condicionado e demais sistemas de VAC." },
       { b: "Água gelada · 450 TR", t: "Retrofit SENAC/RJ — Av. Presidente Vargas", d: "Prédio de 15 pavimentos. Projeto, fornecimento e montagem de ar condicionado, exaustão mecânica, pressurização de escada e ventilação de ar exterior (água gelada, 450 TR). Exaustão das coifas das cozinhas (30 coifas, 80.000 m³/h) e condicionadores de ar exterior especiais (100 TR)." },
       { b: "VRF Inverter · 300 TR", t: "Ampliação Colégio Marista — Barra da Tijuca", d: "Projeto, fornecimento e montagem de ar condicionado, exaustão mecânica e ar exterior para salas de aula, auditórios e teatro. Sistema VRF (inverter), 300 TR." },
       { b: "VRF · 360 TR", t: "Retrofit FAPERJ — Rua da Alfândega", d: "Prédio de 9 pavimentos, obra para a construtora Concrejato Engenharia. Sistema VRF de condicionadores de ar exterior especiais (360 TR), com exaustão mecânica e ar exterior." },
       { b: "Água gelada · 200 TR", t: "Retrofit Opportunity — Rua Dom Gerardo", d: "Prédios comerciais (4 e 9 pavimentos), obra para a Construtora Rios Engenharia. Sistema de água gelada (200 TR), ventilação mecânica e pressurização de escadas." },
-      { b: "Hospitalar · 26.300 m²", t: "Hospital Universitário UFU — Uberlândia", d: "Obra para IBEG Engenharia e Construção. Prédio hospitalar de 26.300 m². Projeto de ar condicionado e demais sistemas de VAC." },
       { b: "Self-Contained · 20 TR", t: "Hospital Praia Brava — UTI", d: "Projeto, fornecimento e montagem do ar condicionado (20 TR) com equipamentos Self-Contained microprocessados, filtragem absoluta e controle de umidade." },
       { b: "Água gelada · 120 TR", t: "Retrofit Shopping Tijuca — Alameda Gourmet", d: "Projeto de ar condicionado em água gelada (120 TR) para a Alameda Gourmet e a área de expansão do subsolo." },
       { b: "Exaustão · 8.000 m³/h", t: "NUCLEP — Cabines de Pintura e Solda", d: "Projeto, fornecimento e montagem do sistema de exaustão mecânica das seções de solda e pintura (diversas capelas). Capacidade: 8.000 m³/h." },
@@ -168,18 +168,12 @@
 
         var body = document.createElement('div');
         body.className = 'install-body';
-        var stars = document.createElement('div');
-        stars.className = 'stars';
-        stars.setAttribute('role', 'img');
-        stars.setAttribute('aria-label', 'Avaliação 5 de 5 estrelas');
-        stars.textContent = '⭐⭐⭐⭐⭐';
         var h3 = document.createElement('h3');
         h3.className = 'install-title';
         h3.textContent = p.t;
         var desc = document.createElement('p');
         desc.className = 'install-desc';
         desc.textContent = p.d;
-        body.appendChild(stars);
         if (p.f) {
           var tag = document.createElement('span');
           tag.className = 'featured-tag';
@@ -305,5 +299,34 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     update();
+  })();
+
+  /* ---- Contadores da faixa de números (anima de 0 ao alvo ao entrar na viewport) ---- */
+  (function () {
+    var nums = document.querySelectorAll('.stat-num');
+    if (!nums.length) { return; }
+    function format(n) { return n.toLocaleString('pt-BR'); }
+    function animate(el) {
+      var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+      var prefix = el.getAttribute('data-prefix') || '';
+      if (reduceMotion) { el.textContent = prefix + format(target); return; }
+      var dur = 1800, start = null;
+      function step(ts) {
+        if (start === null) { start = ts; }
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);   /* easeOutCubic */
+        el.textContent = prefix + format(Math.round(eased * target));
+        if (p < 1) { requestAnimationFrame(step); }
+        else { el.textContent = prefix + format(target); }
+      }
+      requestAnimationFrame(step);
+    }
+    if (!('IntersectionObserver' in window)) { nums.forEach(animate); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { animate(entry.target); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.4 });
+    nums.forEach(function (el) { io.observe(el); });
   })();
 })();

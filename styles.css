@@ -548,8 +548,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   place-items: center;
   background: #fff;
   border: 2px solid var(--blue-light-bg);
-  box-shadow: var(--shadow-sm);
-  transition: transform .4s ease, background-color .4s ease, border-color .4s ease, box-shadow .4s ease;
+  transition: transform .4s ease, background-color .4s ease, border-color .4s ease;
 }
 .process-icon svg { width: 32px; height: 32px; stroke: var(--blue-icon); transition: stroke .4s ease; }
 .process-num {
@@ -579,9 +578,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .process-step.is-active .process-icon {
   background-image: var(--grad-btn);
   border-color: transparent;
-  transform: scale(1.08);
-  box-shadow: var(--shadow-strong);
-  animation: process-pulse 2.4s ease-in-out infinite;
+}
+/* Anel pulsante: borda circular que emana e some (transform/opacity, sem box-shadow → círculo perfeito) */
+.process-step.is-active .process-icon::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--btn-action-start);
+  pointer-events: none;
+  animation: process-pulse 2s ease-out infinite;
 }
 .process-step.is-active .process-icon svg { stroke: #fff; }
 .process-step.is-active .process-num {
@@ -590,9 +596,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: #fff;
 }
 
+/* Anel pulsante (ondinha que emana da borda) */
 @keyframes process-pulse {
-  0%, 100% { box-shadow: var(--shadow-strong); }
-  50% { box-shadow: 0 0 0 9px rgba(37, 150, 190, 0.16), var(--shadow-strong); }
+  0%   { transform: scale(1);   opacity: .55; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
 /* =========================================================
@@ -930,6 +937,39 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 14px;
   color: var(--text-gray);
   margin-top: var(--sp-1);
+}
+
+/* =========================================================
+   FAIXA DE NÚMEROS (contadores)
+   ========================================================= */
+.stats-band {
+  background-image: var(--grad-brand);   /* fundo azul (navy → teal) */
+  color: #fff;
+  padding-block: var(--sp-8);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+  text-align: center;
+}
+.stat-num {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 800;                       /* bold */
+  font-size: clamp(38px, 7vw, 56px);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.stat-label {
+  display: block;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+@media (min-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* =========================================================
