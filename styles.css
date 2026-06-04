@@ -136,7 +136,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 16px;            /* Texto de botão — Poppins Medium 16px Caps */
   font-weight: 600;
   letter-spacing: 0.5px;
-  text-transform: uppercase;
+  text-transform: none;
   border: none;
   border-radius: var(--radius-control);
   cursor: pointer;
@@ -231,7 +231,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 11px;
   letter-spacing: .4px;
   color: var(--text-gray);
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 /* Navegação */
@@ -443,7 +443,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 1.5px;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--btn-action-start);
   background: var(--white);
   padding: 6px 16px;
@@ -612,26 +612,21 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .feature {
   display: flex;
-  gap: var(--sp-3);
+  flex-direction: column;
   background: #fff;
   border-radius: var(--radius-section);
-  padding: var(--sp-4);
   box-shadow: var(--shadow-card);
-  align-items: flex-start;
+  overflow: hidden;
   transition: transform .25s ease, box-shadow .25s ease;
 }
 .feature:hover { transform: translateY(-4px); box-shadow: 0px 16px 32px rgba(37,150,190,.14); }
-.feature-emoji {
-  font-size: 30px;
-  line-height: 1;
-  flex-shrink: 0;
-  width: 60px; height: 60px;
-  border-radius: 16px;
-  background-image: var(--grad-soft);
-  display: grid;
-  place-items: center;
-  box-shadow: var(--shadow-sm);
+.feature-photo {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
 }
+.feature-body { padding: var(--sp-4); }
 .feature h3 {
   font-family: var(--font-heading);
   font-size: 20px;
@@ -898,7 +893,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.2px;
-  text-transform: uppercase;
+  text-transform: none;
   color: #5b4a1f;
   background: linear-gradient(135deg, #f7e3a1, #e6c76e);
   border: 1px solid rgba(184, 134, 11, 0.55);
@@ -1048,7 +1043,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .footer-about h2 { font-size: 22px; margin-bottom: 14px; }
 .footer-about .brand-mark { margin-bottom: var(--sp-2); }
-.footer-col h3 { font-size: 16px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: .5px; }
+.footer-col h3 { font-size: 16px; margin-bottom: 16px; text-transform: none; letter-spacing: .5px; }
 .footer-col p, .footer-col li { margin-bottom: 10px; color: #cfe0f3; }
 .footer-col a { color: #cfe0f3; transition: color .2s ease; }
 .footer-col a:hover, .footer-col a:focus-visible { color: #7FD3E8; }
@@ -1158,7 +1153,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: var(--sp-8); }
   .cards { grid-template-columns: repeat(4, 1fr); }
   .brands { grid-template-columns: repeat(4, 1fr); }
-  .installs-nav { display: inline-flex; }
+  .installs-nav { display: inline-flex; opacity: 0.85; }
 }
 
 /* =========================================================
@@ -1168,6 +1163,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   .nav-toggle { display: flex; }
   .header-cta { display: none; }
   .brand-img { height: 30px; }
+
+  /* Faixa de números: textos maiores no telefone */
+  .stat-num { font-size: 54px; }
+  .stat-label { font-size: 18px; }
 
   .main-nav {
     position: absolute;

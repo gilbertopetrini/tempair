@@ -60,10 +60,10 @@
   if (track) {
     /* Lista de projetos realizados — edite/adicione itens aqui (b: selo, t: título, d: descrição) */
     var projetos = [
-      { f: true, img: "midias/Arsenal de Marinha - Concrejato.jpg", b: "VRF + Split + ar de precisão", t: "Marinha do Brasil — Arsenal de Marinha (EMGEPRON)", d: "Prédio 8. Ar condicionado de expansão direta com VRF e Split System, incluindo unidades de ar de precisão no Datacenter." },
-      { f: true, vid: "midias/fairmountvideo.mp4", img: "midias/Hotel Fairmount.jpg", b: "Troca de chiller", t: "Hotel Fairmont Copacabana", d: "Substituição do chiller — o equipamento central que resfria a água gelada do sistema de climatização. Removemos a unidade antiga e instalamos um novo chiller mais eficiente, integrado à infraestrutura hidráulica e elétrica existente, elevando o desempenho, a confiabilidade e a eficiência energética da climatização do hotel." },
+      { img: "midias/Arsenal de Marinha - Concrejato.jpg", b: "VRF + Split + ar de precisão", t: "Marinha do Brasil — Arsenal de Marinha (EMGEPRON)", d: "Prédio 8. Ar condicionado de expansão direta com VRF e Split System, incluindo unidades de ar de precisão no Datacenter." },
+      { vid: "midias/fairmountvideo.mp4", img: "midias/Hotel Fairmount.jpg", b: "Troca de chiller", t: "Hotel Fairmont Copacabana", d: "Substituição do chiller — o equipamento central que resfria a água gelada do sistema de climatização. Removemos a unidade antiga e instalamos um novo chiller mais eficiente, integrado à infraestrutura hidráulica e elétrica existente, elevando o desempenho, a confiabilidade e a eficiência energética da climatização do hotel." },
       { img: "midias/hospital.jpg", b: "Hospitalar · 26.300 m²", t: "Hospital Universitário UFU — Uberlândia", d: "Obra para IBEG Engenharia e Construção. Prédio hospitalar de 26.300 m². Projeto de ar condicionado e demais sistemas de VAC." },
-      { b: "Água gelada · 450 TR", t: "Retrofit SENAC/RJ — Av. Presidente Vargas", d: "Prédio de 15 pavimentos. Projeto, fornecimento e montagem de ar condicionado, exaustão mecânica, pressurização de escada e ventilação de ar exterior (água gelada, 450 TR). Exaustão das coifas das cozinhas (30 coifas, 80.000 m³/h) e condicionadores de ar exterior especiais (100 TR)." },
+      { img: "midias/senac.jpg", b: "Água gelada · 450 TR", t: "Retrofit SENAC/RJ — Av. Presidente Vargas", d: "Prédio de 15 pavimentos. Projeto, fornecimento e montagem de ar condicionado, exaustão mecânica, pressurização de escada e ventilação de ar exterior (água gelada, 450 TR). Exaustão das coifas das cozinhas (30 coifas, 80.000 m³/h) e condicionadores de ar exterior especiais (100 TR)." },
       { b: "VRF Inverter · 300 TR", t: "Ampliação Colégio Marista — Barra da Tijuca", d: "Projeto, fornecimento e montagem de ar condicionado, exaustão mecânica e ar exterior para salas de aula, auditórios e teatro. Sistema VRF (inverter), 300 TR." },
       { b: "VRF · 360 TR", t: "Retrofit FAPERJ — Rua da Alfândega", d: "Prédio de 9 pavimentos, obra para a construtora Concrejato Engenharia. Sistema VRF de condicionadores de ar exterior especiais (360 TR), com exaustão mecânica e ar exterior." },
       { b: "Água gelada · 200 TR", t: "Retrofit Opportunity — Rua Dom Gerardo", d: "Prédios comerciais (4 e 9 pavimentos), obra para a Construtora Rios Engenharia. Sistema de água gelada (200 TR), ventilação mecânica e pressurização de escadas." },
@@ -146,12 +146,17 @@
           video.setAttribute('aria-hidden', 'true');
           video.setAttribute('tabindex', '-1');
           video.setAttribute('disablepictureinpicture', '');
+          video.autoplay = true;
+          video.setAttribute('autoplay', '');
           cover.appendChild(video);
-          /* Respeita "reduzir movimento": fica no poster, sem autoplay */
-          if (!reduceMotion) {
-            video.autoplay = true;
-            var pr = video.play();
-            if (pr && pr.catch) { pr.catch(function () {}); }
+          /* Garante o autoplay em loop, inclusive no celular */
+          var pr = video.play();
+          if (pr && pr.catch) {
+            pr.catch(function () {
+              var resume = function () { video.play().catch(function () {}); };
+              document.addEventListener('touchstart', resume, { once: true, passive: true });
+              document.addEventListener('click', resume, { once: true });
+            });
           }
         } else if (p.img) {
           cover.className = 'install-cover install-cover--photo';
@@ -322,11 +327,23 @@
       requestAnimationFrame(step);
     }
     if (!('IntersectionObserver' in window)) { nums.forEach(animate); return; }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) { animate(entry.target); io.unobserve(entry.target); }
-      });
-    }, { threshold: 0.4 });
-    nums.forEach(function (el) { io.observe(el); });
+    function startObserver() {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { animate(entry.target); io.unobserve(entry.target); }
+        });
+      }, { threshold: 0.6 });
+      nums.forEach(function (el) { io.observe(el); });
+    }
+    /* No telefone: só começa a observar após o 1º scroll → não anima ao entrar no site */
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      var onFirstScroll = function () {
+        window.removeEventListener('scroll', onFirstScroll);
+        startObserver();
+      };
+      window.addEventListener('scroll', onFirstScroll, { passive: true });
+    } else {
+      startObserver();
+    }
   })();
 })();
