@@ -325,11 +325,14 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: absolute;
   left: 50%;
   bottom: 0;
-  transform: translateX(-50%);
-  width: min(82vw, 1275px);   /* tamanho cheio do desktop 15% menor */
+  transform: translateX(calc(-50% - 25px));   /* deslocado 25px p/ esquerda em todos os dispositivos */
+  width: min(92vw, 1550px);   /* maior no desktop; ainda encolhe pelo vw nas telas menores */
   height: auto;
   z-index: 0;
   pointer-events: none;
+  /* suaviza só a borda esquerda do vídeo (a direita fica sólida) */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 100%);
 }
 /* Gradiente branco por cima do vídeo: funde o topo e mantém o texto legível */
 .hero::after {
@@ -345,6 +348,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   .hero::after {
     background: linear-gradient(180deg, #fff 0%, #fff 37.5%, rgba(255, 255, 255, 0.75) 56.25%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0) 93.75%);
   }
+}
+/* Até 843px, a Hero deixa de ser tela cheia e fica só com a altura necessária */
+@media (max-width: 843px) {
+  .hero { min-height: auto; }
 }
 /* Até 463px, o vídeo bem maior e pode vazar para fora (cortado pelas laterais) */
 @media (max-width: 463px) {
