@@ -334,6 +334,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 100%);
   mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 100%);
 }
+/* Vídeo inline (só aparece no mobile, ver media query) */
+.hero-video-mob { display: none; }
 /* Gradiente branco por cima do vídeo: funde o topo e mantém o texto legível */
 .hero::after {
   content: "";
@@ -1255,12 +1257,29 @@ ul { margin: 0; padding: 0; list-style: none; }
   .main-nav .btn { width: 100%; }
 
   .hero { padding: calc(var(--header-h) + var(--sp-4)) var(--sp-3) var(--sp-6); }
+  /* Reordena a Hero: o vídeo entra no lugar da faixa; a faixa desce p/ baixo da prova social */
+  .hero-inner { display: flex; flex-direction: column; align-items: center; }
+  .hero-video { display: none; }            /* esconde o vídeo de fundo no mobile */
+  .hero-video-mob {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: var(--sp-3) auto var(--sp-2);   /* ocupa o espaço onde ficava a faixa */
+    transform: translateX(-20px);           /* 20px para a esquerda no mobile */
+  }
   .hero-badge { flex-wrap: wrap; justify-content: center; row-gap: 4px; }
   .hero-strip {
+    order: 1;                                /* vai para o fim, abaixo do "Atendimento ágil…" */
     flex-direction: column;
     align-items: stretch;
     width: 100%;
     max-width: 360px;
+    margin: var(--sp-2) auto 0;              /* sem aquele vão grande em cima/embaixo */
+  }
+  .hero-proof {
+    color: #2b3440;                          /* mesmo tom escuro do subtítulo */
+    text-shadow: none;                       /* sem sombra no mobile */
+    margin-top: var(--sp-2);                 /* menos espaço acima */
   }
   .hero-strip-item {
     border-left: none;
@@ -1271,7 +1290,26 @@ ul { margin: 0; padding: 0; list-style: none; }
   .hero-strip-item:first-child { border-top: none; }
   .section { padding-block: var(--sp-8); }
   .cta-band { padding-block: var(--sp-8); }
+  .hero-actions { width: 100%; }            /* mantém o botão full-width no flex column */
   .hero-actions .btn { width: 100%; }
+}
+
+/* Até 485px, puxa o vídeo 10px para a direita e suaviza a borda esquerda */
+@media (max-width: 485px) {
+  .hero-video-mob {
+    transform: translateX(-10px);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 100%);
+  }
+}
+
+/* Até 540px: tópicos bem compactos (gap vertical -80%) e Hero só com o necessário */
+@media (max-width: 540px) {
+  .hero-strip-item { padding-top: 2px; padding-bottom: 2px; }   /* era 10px → -80% */
+  .hero {
+    padding-top: calc(var(--header-h) + var(--sp-2));
+    padding-bottom: var(--sp-3);
+  }
 }
 
 /* Respeita preferência de redução de movimento */

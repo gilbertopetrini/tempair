@@ -28,19 +28,26 @@
     if (e.key === 'Escape') { closeMenu(); }
   });
 
-  /* ---- Vídeo de fundo da Hero: autoplay + loop garantidos em qualquer dispositivo ---- */
-  var heroVideo = document.querySelector('.hero-video');
-  if (heroVideo) {
-    heroVideo.muted = true;                 // mudo é obrigatório p/ autoplay em mobile
-    heroVideo.setAttribute('muted', '');
-    heroVideo.playsInline = true;
+  /* ---- Vídeos da Hero (fundo no desktop + inline no mobile): autoplay + loop ---- */
+  var heroVideos = document.querySelectorAll('.hero video');
+  if (heroVideos.length) {
     var playHero = function () {
-      var p = heroVideo.play();
-      if (p && typeof p.catch === 'function') { p.catch(function () {}); }
+      for (var i = 0; i < heroVideos.length; i++) {
+        var v = heroVideos[i];
+        v.muted = true;                       // mudo é obrigatório p/ autoplay em mobile
+        v.playsInline = true;
+        var p = v.play();
+        if (p && typeof p.catch === 'function') { p.catch(function () {}); }
+      }
     };
+    for (var j = 0; j < heroVideos.length; j++) {
+      heroVideos[j].muted = true;
+      heroVideos[j].setAttribute('muted', '');
+      heroVideos[j].playsInline = true;
+      heroVideos[j].addEventListener('loadeddata', playHero);
+      heroVideos[j].addEventListener('canplay', playHero);
+    }
     playHero();
-    heroVideo.addEventListener('loadeddata', playHero);
-    heroVideo.addEventListener('canplay', playHero);
     // alguns navegadores só liberam o play após o 1º toque/clique do usuário
     var resumeHero = function () { playHero(); };
     document.addEventListener('touchstart', resumeHero, { passive: true });
