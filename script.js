@@ -28,6 +28,29 @@
     if (e.key === 'Escape') { closeMenu(); }
   });
 
+  /* ---- Vídeo de fundo da Hero: autoplay + loop garantidos em qualquer dispositivo ---- */
+  var heroVideo = document.querySelector('.hero-video');
+  if (heroVideo) {
+    heroVideo.muted = true;                 // mudo é obrigatório p/ autoplay em mobile
+    heroVideo.setAttribute('muted', '');
+    heroVideo.playsInline = true;
+    var playHero = function () {
+      var p = heroVideo.play();
+      if (p && typeof p.catch === 'function') { p.catch(function () {}); }
+    };
+    playHero();
+    heroVideo.addEventListener('loadeddata', playHero);
+    heroVideo.addEventListener('canplay', playHero);
+    // alguns navegadores só liberam o play após o 1º toque/clique do usuário
+    var resumeHero = function () { playHero(); };
+    document.addEventListener('touchstart', resumeHero, { passive: true });
+    document.addEventListener('click', resumeHero);
+    // retoma o loop ao voltar para a aba
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) { playHero(); }
+    });
+  }
+
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---- Rolagem suave com compensação do header fixo ---- */
