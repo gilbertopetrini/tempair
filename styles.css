@@ -1306,6 +1306,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Até 540px: tópicos bem compactos (gap vertical -80%) e Hero só com o necessário */
 @media (max-width: 540px) {
   .hero-strip-item { padding-top: 2px; padding-bottom: 2px; }   /* era 10px → -80% */
+  .hero-strip { padding-top: 2px; padding-bottom: 2px; }        /* iguala topo/base ao gap interno */
   .hero {
     padding-top: calc(var(--header-h) + var(--sp-2));
     padding-bottom: var(--sp-3);
