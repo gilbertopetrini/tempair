@@ -336,6 +336,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 /* Vídeo inline (só aparece no mobile, ver media query) */
 .hero-video-mob { display: none; }
+
+/* ≥1515px: empurra o vídeo de fundo mais para a esquerda */
+@media (min-width: 1515px) {
+  .hero-video { transform: translateX(calc(-50% - 55px)); }
+}
 /* Gradiente branco por cima do vídeo: funde o topo e mantém o texto legível */
 .hero::after {
   content: "";
@@ -343,7 +348,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, #fff 0%, #fff 30%, rgba(255, 255, 255, 0.75) 45%, rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 0) 75%);
+  /* transição mais curta/concentrada (menos dispersa) */
+  background: linear-gradient(180deg, #fff 0%, #fff 37%, rgba(255, 255, 255, 0.5) 44%, rgba(255, 255, 255, 0) 51%);
 }
 /* Até 769px, o gradiente branco desce mais 25% (cobre mais o vídeo) */
 @media (max-width: 769px) {
@@ -1292,6 +1298,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   .cta-band { padding-block: var(--sp-8); }
   .hero-actions { width: 100%; }            /* mantém o botão full-width no flex column */
   .hero-actions .btn { width: 100%; }
+  .sobre-intro { text-align: left; }        /* texto "Somos uma empresa…" alinhado à esquerda no mobile */
+  /* Projetos: equilibra o espaço acima/abaixo do parágrafo (era ~16px x ~90px) */
+  #instalacoes .section-head { margin-bottom: 0; }
+  #instalacoes .installs-track { padding-top: 22px; }   /* +20% sobre 18px */
 }
 
 /* Até 485px, puxa o vídeo 10px para a direita e suaviza a borda esquerda */
