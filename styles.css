@@ -324,7 +324,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero-video {
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: 20px;   /* sobe 20px em todos os dispositivos */
   transform: translateX(calc(-50% - 25px));   /* deslocado 25px p/ esquerda em todos os dispositivos */
   width: min(92vw, 1550px);   /* maior no desktop; ainda encolhe pelo vw nas telas menores */
   height: auto;
