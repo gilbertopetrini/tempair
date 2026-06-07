@@ -318,6 +318,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   overflow: hidden;
   background-color: #fff;   /* mesmo branco do fundo do vídeo, para fundir */
   padding: calc(var(--header-h) + var(--sp-6)) var(--sp-3) clamp(160px, 28vh, 360px);
+  border-bottom: 2px solid #2596BE;          /* fallback */
+  border-image: var(--grad-btn) 1;           /* linha em gradiente na divisão com "Quem somos" */
 }
 /* Vídeo de fundo no rodapé da Hero. Sem breakpoint: encolhe sozinho pelo vw
    conforme a resolução diminui (cheio no desktop, menor em telas pequenas). */
@@ -556,9 +558,58 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .card p { font-size: 15px; }  /* Texto de card 14–16px */
 
+/* "Quem somos": seção branca, cards azulados */
+#sobre .card {
+  background: var(--blue-light-bg);
+  border-color: #cce6f0;
+}
+#sobre .card-icon {
+  background-image: none;
+  background-color: #fff;
+  border-color: #d6ecf4;
+}
+
+/* Serviços sem cabeçalho: sobe e cola nos cards do "Quem somos" (parece um bloco só) */
+#sobre { padding-top: var(--sp-4); padding-bottom: var(--sp-6); }   /* menos vão após a Hero */
+#servicos { padding-top: 0; }
+
 /* =========================================================
    PROCESSO EM 3 ETAPAS (traçado animado pelo scroll)
    ========================================================= */
+.process-title {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(22px, 3.5vw, 30px);
+  font-weight: 700;
+  color: var(--blue-deep);
+  margin-bottom: var(--sp-6);
+}
+/* Variante banner em gradiente azul (escuro → claro), texto branco, "grossura" de card */
+.process-title--banner {
+  color: #fff;
+  background-image: var(--grad-btn);
+  border-radius: var(--radius-section);
+  padding: var(--sp-4);
+  box-shadow: var(--shadow-card);
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* No mobile: faixa de ponta a ponta da tela e mais baixa */
+@media (max-width: 767px) {
+  .process-title--banner {
+    max-width: none;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    border-radius: 0;
+    box-shadow: none;
+    padding-block: var(--sp-2);   /* altura menor */
+  }
+}
 .process {
   --progress: 0;                 /* 0–1, atualizado pelo scroll via JS */
   position: relative;
@@ -720,6 +771,64 @@ ul { margin: 0; padding: 0; list-style: none; }
   top: 0;
   color: var(--btn-action-start);
   font-weight: 700;
+}
+
+/* ===== Área de atuação: mapa do Brasil + estados atendidos ===== */
+.atuacao-map {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+  align-items: center;
+  margin-bottom: var(--sp-8);
+}
+.atuacao-map-fig { margin: 0; }
+.atuacao-map-img {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  margin: 0 auto;
+}
+.atuacao-map-info h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 700;
+  color: var(--blue-deep);
+  line-height: 1.2;
+}
+.atuacao-list {
+  list-style: none;
+  margin: var(--sp-4) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.atuacao-list li {
+  position: relative;
+  padding-left: 30px;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--blue-deep);
+}
+.atuacao-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 19px;
+  height: 19px;
+  background-color: var(--btn-action-start);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.atuacao-note {
+  margin-top: var(--sp-4);
+  color: var(--text-gray);
+  font-size: 15px;
+  max-width: 480px;
+}
+@media (min-width: 768px) {
+  .atuacao-map { grid-template-columns: 0.95fr 1.05fr; gap: var(--sp-8); }
 }
 
 .team-grid {
@@ -1031,6 +1140,19 @@ ul { margin: 0; padding: 0; list-style: none; }
   .stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+/* Faixa de números duplicada só p/ mobile (fica abaixo do mapa): horizontal e compacta */
+.stats-band--mobile {
+  display: none;
+  padding-block: var(--sp-4);     /* mais baixa (era sp-6) */
+  margin-bottom: var(--sp-6);     /* afasta do 1º card "Nossas especialidades" */
+}
+.stats-band--mobile .stats-grid {
+  grid-template-columns: repeat(3, 1fr);   /* continua horizontal */
+  gap: var(--sp-2);
+}
+.stats-band--mobile .stat-num { font-size: clamp(18px, 5.6vw, 26px); }   /* pequena, pra caber 3 */
+.stats-band--mobile .stat-label { font-size: 11px; margin-top: 4px; line-height: 1.2; }
+
 /* =========================================================
    FAIXA DE CONVERSÃO (CTA intermediário)
    ========================================================= */
@@ -1228,7 +1350,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   .header-cta { display: none; }
   .brand-img { height: 30px; }
 
-  /* Faixa de números: textos maiores no telefone */
+  /* Faixa de números: some a de cima (depois da Hero) e aparece a de baixo do mapa */
+  .stats-band--top { display: none; }
+  .stats-band--mobile { display: block; }
   .stat-num { font-size: 54px; }
   .stat-label { font-size: 18px; }
 
@@ -1298,7 +1422,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .cta-band { padding-block: var(--sp-8); }
   .hero-actions { width: 100%; }            /* mantém o botão full-width no flex column */
   .hero-actions .btn { width: 100%; }
-  .sobre-intro { text-align: left; }        /* texto "Somos uma empresa…" alinhado à esquerda no mobile */
+  .sobre-intro { text-align: left; }        /* "Somos uma empresa…" à esquerda no mobile */
   /* Projetos: equilibra o espaço acima/abaixo do parágrafo (era ~16px x ~90px) */
   #instalacoes .section-head { margin-bottom: 0; }
   #instalacoes .installs-track { padding-top: 22px; }   /* +20% sobre 18px */

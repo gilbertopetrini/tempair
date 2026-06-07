@@ -106,7 +106,7 @@
     </section>
 
     <!-- ============================= FAIXA DE NÚMEROS ============================= -->
-    <section class="stats-band" aria-label="Nossos números">
+    <section class="stats-band stats-band--top" aria-label="Nossos números">
       <div class="container stats-grid">
         <div class="stat">
           <span class="stat-num" data-target="7" data-prefix="+">+0</span>
@@ -124,7 +124,7 @@
     </section>
 
     <!-- ============================= ÁREA DE ATUAÇÃO ============================= -->
-    <section class="section section--soft" id="sobre" aria-labelledby="sobre-title">
+    <section class="section" id="sobre" aria-labelledby="sobre-title">
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">Quem somos</span>
@@ -132,6 +132,42 @@
           <p class="sobre-intro" style="margin-top:16px;">Somos uma empresa de engenharia focada em desenvolver soluções de climatização de excelência para estabelecimentos comerciais, industriais e residenciais, alavancando os mais de 30 anos de experiência do nosso corpo técnico em projetos para os principais clientes no Rio de Janeiro.</p>
         </div>
 
+        <div class="atuacao-map reveal">
+          <figure class="atuacao-map-fig">
+            <img class="atuacao-map-img" src="midias/br.png" alt="Mapa do Brasil com os estados atendidos pela Temp Air em destaque: Rio de Janeiro, Espírito Santo, São Paulo e Distrito Federal" loading="lazy">
+          </figure>
+          <div class="atuacao-map-info">
+            <h3>Lugares onde a Temp Air já deixou o clima perfeito!</h3>
+            <ul class="atuacao-list">
+              <li>Rio de Janeiro</li>
+              <li>Espírito Santo</li>
+              <li>São Paulo</li>
+              <li>Distrito Federal</li>
+            </ul>
+            <p class="atuacao-note">E não para por aqui — dependendo do projeto, a Temp Air vai mais longe para deixar o clima perfeito onde o seu cliente precisar.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faixa de números — só no mobile, logo abaixo do mapa (horizontal e compacta) -->
+      <section class="stats-band stats-band--mobile" aria-label="Nossos números">
+        <div class="container stats-grid">
+          <div class="stat">
+            <span class="stat-num" data-target="7" data-prefix="+">+0</span>
+            <span class="stat-label">Anos de experiência</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="420" data-prefix="+">+0</span>
+            <span class="stat-label">Estabelecimentos atendidos</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="10240" data-prefix="+">+0</span>
+            <span class="stat-label">Aparelhos instalados</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="container">
         <div class="about-grid">
           <article class="card reveal">
             <span class="card-icon" aria-hidden="true">
@@ -174,10 +210,7 @@
     <!-- ============================= SERVIÇOS ============================= -->
     <section class="section" id="servicos" aria-labelledby="servicos-title">
       <div class="container">
-        <div class="section-head reveal">
-          <span class="eyebrow">Nossos serviços</span>
-          <h2 id="servicos-title">Soluções completas em climatização</h2>
-        </div>
+        <h2 class="process-title process-title--banner reveal" id="servicos-title">Sequência do seu projeto:</h2>
 
         <!-- Processo em 3 etapas com traçado animado pelo scroll -->
         <div class="process reveal" id="process">
@@ -216,6 +249,8 @@
             </li>
           </ol>
         </div>
+
+        <h2 class="process-title reveal">Serviços recorrentes</h2>
 
         <div class="cards">
           <article class="card reveal">
