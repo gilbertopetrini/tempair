@@ -105,26 +105,15 @@
       </video>
     </section>
 
-    <!-- ============================= FAIXA DE NÚMEROS ============================= -->
-    <section class="stats-band stats-band--top" aria-label="Nossos números">
-      <div class="container stats-grid">
-        <div class="stat">
-          <span class="stat-num" data-target="7" data-prefix="+">+0</span>
-          <span class="stat-label">Anos de experiência</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num" data-target="420" data-prefix="+">+0</span>
-          <span class="stat-label">Estabelecimentos atendidos</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num" data-target="10240" data-prefix="+">+0</span>
-          <span class="stat-label">Aparelhos instalados</span>
-        </div>
-      </div>
-    </section>
-
     <!-- ============================= ÁREA DE ATUAÇÃO ============================= -->
     <section class="section" id="sobre" aria-labelledby="sobre-title">
+      <!-- Flocos de neve decorativos (SVG real em máscara, desfocados e animados) -->
+      <span class="sobre-snow sobre-snow--1" aria-hidden="true"></span>
+      <span class="sobre-snow sobre-snow--2" aria-hidden="true"></span>
+      <span class="sobre-snow sobre-snow--3" aria-hidden="true"></span>
+      <span class="sobre-snow sobre-snow--4" aria-hidden="true"></span>
+      <span class="sobre-snow sobre-snow--5" aria-hidden="true"></span>
+
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">Quem somos</span>
@@ -132,12 +121,12 @@
           <p class="sobre-intro" style="margin-top:16px;">Somos uma empresa de engenharia focada em desenvolver soluções de climatização de excelência para estabelecimentos comerciais, industriais e residenciais, alavancando os mais de 30 anos de experiência do nosso corpo técnico em projetos para os principais clientes no Rio de Janeiro.</p>
         </div>
 
+        <h3 class="atuacao-title reveal">Lugares onde nós já deixamos o clima perfeito!</h3>
         <div class="atuacao-map reveal">
           <figure class="atuacao-map-fig">
             <img class="atuacao-map-img" src="midias/br.png" alt="Mapa do Brasil com os estados atendidos pela Temp Air em destaque: Rio de Janeiro, Espírito Santo, São Paulo e Distrito Federal" loading="lazy">
           </figure>
           <div class="atuacao-map-info">
-            <h3>Lugares onde a Temp Air já deixou o clima perfeito!</h3>
             <ul class="atuacao-list">
               <li>Rio de Janeiro</li>
               <li>Espírito Santo</li>
@@ -148,27 +137,12 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Faixa de números — só no mobile, logo abaixo do mapa (horizontal e compacta) -->
-      <section class="stats-band stats-band--mobile" aria-label="Nossos números">
-        <div class="container stats-grid">
-          <div class="stat">
-            <span class="stat-num" data-target="7" data-prefix="+">+0</span>
-            <span class="stat-label">Anos de experiência</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-target="420" data-prefix="+">+0</span>
-            <span class="stat-label">Estabelecimentos atendidos</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-target="10240" data-prefix="+">+0</span>
-            <span class="stat-label">Aparelhos instalados</span>
-          </div>
-        </div>
-      </section>
-
+    <!-- ============================= SERVIÇOS ============================= -->
+    <section class="section" id="servicos" aria-labelledby="servicos-title">
       <div class="container">
-        <div class="about-grid">
+        <div class="about-grid about-grid--servicos">
           <article class="card reveal">
             <span class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -205,12 +179,27 @@
           </article>
         </div>
       </div>
-    </section>
 
-    <!-- ============================= SERVIÇOS ============================= -->
-    <section class="section" id="servicos" aria-labelledby="servicos-title">
+      <!-- ============================= FAIXA DE NÚMEROS ============================= -->
+      <section class="stats-band" aria-label="Nossos números">
+        <div class="container stats-grid">
+          <div class="stat">
+            <span class="stat-num" data-target="7" data-prefix="+">+0</span>
+            <span class="stat-label">Anos de experiência</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="420" data-prefix="+">+0</span>
+            <span class="stat-label">Estabelecimentos atendidos</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="10240" data-prefix="+">+0</span>
+            <span class="stat-label">Aparelhos instalados</span>
+          </div>
+        </div>
+      </section>
+
       <div class="container">
-        <h2 class="process-title process-title--banner reveal" id="servicos-title">Sequência do seu projeto:</h2>
+        <h2 class="process-title reveal" id="servicos-title">Como trabalhamos</h2>
 
         <!-- Processo em 3 etapas com traçado animado pelo scroll -->
         <div class="process reveal" id="process">
@@ -250,7 +239,10 @@
           </ol>
         </div>
 
-        <h2 class="process-title reveal">Serviços recorrentes</h2>
+        <header class="cards-head reveal">
+          <h2 class="cards-head-title">Soluções completas em climatização</h2>
+          <p class="cards-head-sub">Instalação, manutenção e higienização — tudo com a qualidade e a garantia Temp Air.</p>
+        </header>
 
         <div class="cards">
           <article class="card reveal">

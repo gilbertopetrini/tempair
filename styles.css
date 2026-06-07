@@ -187,7 +187,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--blue-light-bg);
-  box-shadow: var(--shadow-sm);
 }
 .header-inner {
   min-height: var(--header-h);
@@ -318,8 +317,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   overflow: hidden;
   background-color: #fff;   /* mesmo branco do fundo do vídeo, para fundir */
   padding: calc(var(--header-h) + var(--sp-6)) var(--sp-3) clamp(160px, 28vh, 360px);
-  border-bottom: 2px solid #2596BE;          /* fallback */
-  border-image: var(--grad-btn) 1;           /* linha em gradiente na divisão com "Quem somos" */
 }
 /* Vídeo de fundo no rodapé da Hero. Sem breakpoint: encolhe sozinho pelo vw
    conforme a resolução diminui (cheio no desktop, menor em telas pequenas). */
@@ -441,7 +438,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.28);   /* ainda mais transparente */
+  background: rgba(255, 255, 255, 0.28);
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 16px;
   padding: 12px 8px;
@@ -458,13 +455,18 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 15px;
-  color: var(--blue-deep);
-  border-left: 1px solid rgba(3, 64, 119, 0.15);
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);   /* legibilidade do branco sobre o fundo */
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
 }
 .hero-strip-item:first-child { border-left: none; }
 .hero-strip-item svg {
-  width: 20px; height: 20px;
+  width: 18px; height: 18px;
   color: var(--btn-action-start);
+  background: #fff;              /* fundo branco no ícone */
+  border-radius: 50%;
+  padding: 6px;
+  box-sizing: content-box;      /* mantém o ícone em 18px + respiro do badge */
   flex-shrink: 0;
 }
 
@@ -558,20 +560,48 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .card p { font-size: 15px; }  /* Texto de card 14–16px */
 
-/* "Quem somos": seção branca, cards azulados */
-#sobre .card {
-  background: var(--blue-light-bg);
-  border-color: #cce6f0;
+/* "Quem somos": fundo azul forte em gradiente + textos claros p/ contraste */
+#sobre {
+  background-image: var(--grad-brand);
+  padding-top: var(--sp-4);
+  padding-bottom: var(--sp-6);
+  position: relative;
+  overflow: hidden;   /* contém os flocos */
 }
-#sobre .card-icon {
-  background-image: none;
-  background-color: #fff;
-  border-color: #d6ecf4;
+/* conteúdo acima dos flocos */
+#sobre > .container { position: relative; z-index: 1; }
+/* flocos de neve decorativos (SVG real), desfocados e flutuando devagar.
+   O filtro brightness(0) invert(1) recolore o SVG preto para branco. */
+.sobre-snow {
+  position: absolute;
+  z-index: 0;
+  background-image: url("midias/snowflake-icon.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  animation: sobre-snow-float 12s ease-in-out infinite;
 }
+.sobre-snow--1 { top: 9%;    left: 5%;   width: 84px; height: 84px; opacity: .28; filter: brightness(0) invert(1) blur(2px); animation-duration: 13s; }
+.sobre-snow--2 { top: 24%;   right: 7%;  width: 58px; height: 58px; opacity: .22; filter: brightness(0) invert(1) blur(3px); animation-duration: 10s; animation-delay: -3s; }
+.sobre-snow--3 { bottom: 16%; left: 11%; width: 68px; height: 68px; opacity: .20; filter: brightness(0) invert(1) blur(4px); animation-duration: 15s; animation-delay: -6s; }
+.sobre-snow--4 { bottom: 22%; right: 13%; width: 48px; height: 48px; opacity: .30; filter: brightness(0) invert(1) blur(2px); animation-duration: 11s; animation-delay: -2s; }
+.sobre-snow--5 { top: 50%;   left: 47%;  width: 40px; height: 40px; opacity: .16; filter: brightness(0) invert(1) blur(2px); animation-duration: 14s; animation-delay: -8s; }
+@keyframes sobre-snow-float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%      { transform: translate(14px, 22px) rotate(16deg); }
+}
+#sobre .section-head h2,
+#sobre .sobre-intro,
+#sobre .atuacao-title,
+#sobre .atuacao-list li {
+  color: #fff;
+}
+#sobre .atuacao-note { color: rgba(255, 255, 255, 0.85); }
+#sobre .atuacao-list li::before { background-color: #fff; }   /* pins brancos no fundo escuro */
 
-/* Serviços sem cabeçalho: sobe e cola nos cards do "Quem somos" (parece um bloco só) */
-#sobre { padding-top: var(--sp-4); padding-bottom: var(--sp-6); }   /* menos vão após a Hero */
-#servicos { padding-top: 0; }
+#servicos { padding-top: var(--sp-8); }   /* respiro no topo da seção */
+.about-grid--servicos { margin-bottom: var(--sp-8); }   /* separa os cards de "Como trabalhamos" */
 
 /* =========================================================
    PROCESSO EM 3 ETAPAS (traçado animado pelo scroll)
@@ -582,33 +612,22 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: clamp(22px, 3.5vw, 30px);
   font-weight: 700;
   color: var(--blue-deep);
+  margin-top: var(--sp-8);        /* respiro abaixo da faixa de números */
   margin-bottom: var(--sp-6);
 }
-/* Variante banner em gradiente azul (escuro → claro), texto branco, "grossura" de card */
-.process-title--banner {
-  color: #fff;
-  background-image: var(--grad-btn);
-  border-radius: var(--radius-section);
-  padding: var(--sp-4);
-  box-shadow: var(--shadow-card);
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
+/* Cabeçalho dos cards de serviço (agrupa e dá um ar mais profissional) */
+.cards-head { text-align: center; margin-bottom: var(--sp-6); }
+.cards-head-title {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 700;
+  color: var(--blue-deep);
 }
-/* No mobile: faixa de ponta a ponta da tela e mais baixa */
-@media (max-width: 767px) {
-  .process-title--banner {
-    max-width: none;
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    border-radius: 0;
-    box-shadow: none;
-    padding-block: var(--sp-2);   /* altura menor */
-  }
+.cards-head-sub {
+  max-width: 620px;
+  margin: 12px auto 0;
+  color: var(--text-gray);
+  font-size: clamp(15px, 2vw, 17px);
 }
 .process {
   --progress: 0;                 /* 0–1, atualizado pelo scroll via JS */
@@ -779,7 +798,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   grid-template-columns: 1fr;
   gap: var(--sp-6);
   align-items: center;
-  margin-bottom: var(--sp-8);
+  margin-bottom: 0;   /* mapa é o último item do "Quem somos" — sem vão extra */
 }
 .atuacao-map-fig { margin: 0; }
 .atuacao-map-img {
@@ -789,12 +808,14 @@ ul { margin: 0; padding: 0; list-style: none; }
   height: auto;
   margin: 0 auto;
 }
-.atuacao-map-info h3 {
+.atuacao-title {
   font-family: var(--font-heading);
-  font-size: clamp(20px, 3vw, 26px);
+  font-size: clamp(22px, 3.6vw, 30px);
   font-weight: 700;
-  color: var(--blue-deep);
   line-height: 1.2;
+  text-align: center;
+  max-width: 740px;
+  margin: 0 auto var(--sp-6);
 }
 .atuacao-list {
   list-style: none;
@@ -1140,19 +1161,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   .stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Faixa de números duplicada só p/ mobile (fica abaixo do mapa): horizontal e compacta */
-.stats-band--mobile {
-  display: none;
-  padding-block: var(--sp-4);     /* mais baixa (era sp-6) */
-  margin-bottom: var(--sp-6);     /* afasta do 1º card "Nossas especialidades" */
-}
-.stats-band--mobile .stats-grid {
-  grid-template-columns: repeat(3, 1fr);   /* continua horizontal */
-  gap: var(--sp-2);
-}
-.stats-band--mobile .stat-num { font-size: clamp(18px, 5.6vw, 26px); }   /* pequena, pra caber 3 */
-.stats-band--mobile .stat-label { font-size: 11px; margin-top: 4px; line-height: 1.2; }
-
 /* =========================================================
    FAIXA DE CONVERSÃO (CTA intermediário)
    ========================================================= */
@@ -1350,9 +1358,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .header-cta { display: none; }
   .brand-img { height: 30px; }
 
-  /* Faixa de números: some a de cima (depois da Hero) e aparece a de baixo do mapa */
-  .stats-band--top { display: none; }
-  .stats-band--mobile { display: block; }
+  /* Faixa de números no telefone: textos maiores */
   .stat-num { font-size: 54px; }
   .stat-label { font-size: 18px; }
 
@@ -1416,6 +1422,8 @@ ul { margin: 0; padding: 0; list-style: none; }
     border-top: 1px solid rgba(3, 64, 119, 0.12);
     padding: 10px 12px;
     justify-content: center;
+    color: var(--blue-deep);     /* azul escuro no mobile */
+    text-shadow: none;           /* sem sombra no mobile */
   }
   .hero-strip-item:first-child { border-top: none; }
   .section { padding-block: var(--sp-8); }
