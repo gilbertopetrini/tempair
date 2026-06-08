@@ -562,7 +562,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* "Quem somos": fundo azul forte em gradiente + textos claros p/ contraste */
 #sobre {
-  background-image: var(--grad-brand);
+  background-color: var(--blue-deep);   /* azul forte sólido (sem gradiente) */
   padding-top: var(--sp-4);
   padding-bottom: var(--sp-6);
   position: relative;
@@ -1430,6 +1430,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   .hero-actions { width: 100%; }            /* mantém o botão full-width no flex column */
   .hero-actions .btn { width: 100%; }
   .sobre-intro { text-align: left; }        /* "Somos uma empresa…" à esquerda no mobile */
+  .atuacao-map { gap: var(--sp-2); }        /* mapa mais perto da lista de estados */
+  .atuacao-list { margin-top: var(--sp-1); }
   /* Projetos: equilibra o espaço acima/abaixo do parágrafo (era ~16px x ~90px) */
   #instalacoes .section-head { margin-bottom: 0; }
   #instalacoes .installs-track { padding-top: 22px; }   /* +20% sobre 18px */
