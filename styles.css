@@ -570,23 +570,22 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 /* conteúdo acima dos flocos */
 #sobre > .container { position: relative; z-index: 1; }
-/* flocos de neve decorativos (SVG real), desfocados e flutuando devagar.
-   O filtro brightness(0) invert(1) recolore o SVG preto para branco. */
+/* flocos de neve decorativos (SVG branco), desfocados e flutuando devagar */
 .sobre-snow {
   position: absolute;
   z-index: 0;
-  background-image: url("midias/snowflake-icon.svg");
+  background-image: url("midias/snowflake-icon.svg");   /* SVG já é branco */
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
   pointer-events: none;
   animation: sobre-snow-float 12s ease-in-out infinite;
 }
-.sobre-snow--1 { top: 9%;    left: 5%;   width: 84px; height: 84px; opacity: .28; filter: brightness(0) invert(1) blur(2px); animation-duration: 13s; }
-.sobre-snow--2 { top: 24%;   right: 7%;  width: 58px; height: 58px; opacity: .22; filter: brightness(0) invert(1) blur(3px); animation-duration: 10s; animation-delay: -3s; }
-.sobre-snow--3 { bottom: 16%; left: 11%; width: 68px; height: 68px; opacity: .20; filter: brightness(0) invert(1) blur(4px); animation-duration: 15s; animation-delay: -6s; }
-.sobre-snow--4 { bottom: 22%; right: 13%; width: 48px; height: 48px; opacity: .30; filter: brightness(0) invert(1) blur(2px); animation-duration: 11s; animation-delay: -2s; }
-.sobre-snow--5 { top: 50%;   left: 47%;  width: 40px; height: 40px; opacity: .16; filter: brightness(0) invert(1) blur(2px); animation-duration: 14s; animation-delay: -8s; }
+.sobre-snow--1 { top: 9%;    left: 5%;   width: 84px; height: 84px; opacity: .16; filter: blur(2px); animation-duration: 13s; }
+.sobre-snow--2 { top: 24%;   right: 7%;  width: 58px; height: 58px; opacity: .13; filter: blur(3px); animation-duration: 10s; animation-delay: -3s; }
+.sobre-snow--3 { bottom: 16%; left: 11%; width: 68px; height: 68px; opacity: .12; filter: blur(4px); animation-duration: 15s; animation-delay: -6s; }
+.sobre-snow--4 { bottom: 22%; right: 13%; width: 48px; height: 48px; opacity: .18; filter: blur(2px); animation-duration: 11s; animation-delay: -2s; }
+.sobre-snow--5 { top: 50%;   left: 47%;  width: 40px; height: 40px; opacity: .10; filter: blur(2px); animation-duration: 14s; animation-delay: -8s; }
 @keyframes sobre-snow-float {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   50%      { transform: translate(14px, 22px) rotate(16deg); }
