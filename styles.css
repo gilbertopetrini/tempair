@@ -291,16 +291,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Botão hambúrguer (mobile) */
 .nav-toggle {
   display: none;
-  width: 48px; height: 48px;
+  width: 40px; height: 40px;
   border: none;
-  background: var(--blue-light-bg);
-  border-radius: 12px;
+  background: var(--blue-deep);   /* azul escuro */
+  border-radius: 10px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.nav-toggle svg { width: 24px; height: 24px; stroke: var(--blue-deep); }
+.nav-toggle svg { width: 22px; height: 22px; stroke: #fff; }   /* barras brancas */
 
 /* =========================================================
    HERO
@@ -324,7 +324,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: absolute;
   left: 50%;
   bottom: 20px;   /* sobe 20px em todos os dispositivos */
-  transform: translateX(calc(-50% - 25px));   /* deslocado 25px p/ esquerda em todos os dispositivos */
+  --vid-x: -25px;   /* deslocamento horizontal (usado no translate e na compensação do zoom) */
+  transform: translateX(calc(-50% + var(--vid-x)));
+  transform-origin: calc(50% - var(--vid-x)) center;   /* zoom pivota no centro da tela, não no centro deslocado */
   width: min(92vw, 1550px);   /* maior no desktop; ainda encolhe pelo vw nas telas menores */
   height: auto;
   z-index: 0;
@@ -338,7 +340,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ≥1515px: empurra o vídeo de fundo mais para a esquerda */
 @media (min-width: 1515px) {
-  .hero-video { transform: translateX(calc(-50% - 55px)); }
+  .hero-video { --vid-x: -55px; }
 }
 /* Gradiente branco por cima do vídeo: funde o topo e mantém o texto legível */
 .hero::after {
@@ -349,6 +351,38 @@ ul { margin: 0; padding: 0; list-style: none; }
   pointer-events: none;
   /* transição mais curta/concentrada (menos dispersa) */
   background: linear-gradient(180deg, #fff 0%, #fff 37%, rgba(255, 255, 255, 0.5) 44%, rgba(255, 255, 255, 0) 51%);
+}
+
+/* ===== Animação de entrada da Hero (uma vez, no carregamento) =====
+   1) Vídeo: fade in 70px acima; após 0,5s desce até a posição (acelera e freia no fim, ~1,2s).
+   2) Depois (~1,3s): menu (fade) + H1/subtítulo/faixa (fade + descem do topo)
+      + gradiente/botão/prova (só fade). */
+@keyframes hero-in-up {
+  from { opacity: 0; transform: translateY(-26px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes hero-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes hero-video-drop {   /* desce de 70px acima até a posição */
+  from { translate: 0 -70px; }
+  to   { translate: 0 0; }
+}
+.hero-video,
+.hero-video-mob     { animation: hero-fade 0.5s ease 0s both,
+                                  hero-video-drop 0.7s cubic-bezier(.5, 0, .2, 1) 1.0s both; }   /* fade 70px acima; segura e após 1s desce (acelera e freia no fim) */
+.site-header        { animation: hero-fade  0.7s ease 1.80s both; }   /* menu */
+.hero h1            { animation: hero-in-up 0.7s ease 1.90s both; }   /* H1 (fade + desce do topo) */
+.hero .hero-sub     { animation: hero-in-up 0.7s ease 2.05s both; }   /* subtítulo */
+.hero .hero-strip   { animation: hero-in-up 0.7s ease 2.20s both; }   /* faixa de tópicos */
+.hero::after        { animation: hero-fade  0.7s ease 1.90s both; }   /* gradiente: só fade, junto do grupo */
+.hero .hero-actions { animation: hero-fade  0.7s ease 2.20s both; }   /* botão: só fade, junto do grupo */
+.hero .hero-proof   { animation: hero-fade  0.7s ease 2.30s both; }   /* prova: só fade, junto do grupo */
+@media (prefers-reduced-motion: reduce) {
+  .hero-video, .hero-video-mob,
+  .hero h1, .hero .hero-sub, .hero .hero-strip, .hero::after,
+  .hero .hero-actions, .hero .hero-proof, .site-header { animation: none !important; }
 }
 /* Até 769px, o gradiente branco desce mais 25% (cobre mais o vídeo) */
 @media (max-width: 769px) {
@@ -476,6 +510,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   justify-content: center;
   gap: var(--sp-2);
 }
+/* botão da Hero com o mesmo gradiente do fundo da seção do mapa (navy) */
+.hero-actions .btn-primary {
+  background-image:
+    radial-gradient(120% 90% at 80% 10%, #0d3f76 0%, rgba(13,63,118,0) 55%),
+    linear-gradient(180deg, #0a3461 0%, #072b52 100%);
+}
 .hero-proof {
   margin-top: var(--sp-4);
   display: inline-flex;
@@ -560,16 +600,123 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .card p { font-size: 15px; }  /* Texto de card 14–16px */
 
-/* "Quem somos": fundo azul forte em gradiente + textos claros p/ contraste */
-#sobre {
-  background-color: var(--blue-deep);   /* azul forte sólido (sem gradiente) */
-  padding-top: var(--sp-4);
-  padding-bottom: var(--sp-6);
+/* ============================================================
+   ÁREA DE ATUAÇÃO — modelo reformulado (.ta-wrap)
+   Mapa: reaproveita a imagem br.png (sem o SVG do modelo)
+   ============================================================ */
+.ta-wrap {
+  --navy-900:#072b52; --navy-800:#0a3461; --navy-700:#0e3d72; --navy-600:#11497f;
+  --line:rgba(255,255,255,.10); --ink:#ffffff; --muted:#9db6d4; --muted-2:#7c98ba;
+  --accent:#2e97d4; --accent-bright:#4cb6ef;
+  background:
+    radial-gradient(120% 90% at 80% 10%, #0d3f76 0%, rgba(13,63,118,0) 55%),
+    linear-gradient(180deg, var(--navy-800) 0%, var(--navy-900) 100%);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 84px 28px 72px;
+  line-height: 1.55;
   position: relative;
   overflow: hidden;   /* contém os flocos */
 }
-/* conteúdo acima dos flocos */
-#sobre > .container { position: relative; z-index: 1; }
+.ta-wrap * { box-sizing: border-box; }
+.ta-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
+
+/* Flocos de neve decorativos no fundo (SVG branco, levemente desfocados) */
+.ta-snow {
+  position: absolute;
+  z-index: 0;
+  background-image: url("midias/snowflake-icon.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  animation: ta-snow-float 13s ease-in-out infinite;
+}
+.ta-snow--1 { top: 12%;   left: 6%;   width: 70px; height: 70px; opacity: .14; filter: blur(1.5px); animation-duration: 13s; }
+.ta-snow--2 { top: 30%;   right: 9%;  width: 50px; height: 50px; opacity: .11; filter: blur(2px);   animation-duration: 11s; animation-delay: -3s; }
+.ta-snow--3 { bottom: 18%; left: 13%; width: 58px; height: 58px; opacity: .10; filter: blur(2.5px); animation-duration: 15s; animation-delay: -6s; }
+.ta-snow--4 { bottom: 14%; right: 7%; width: 44px; height: 44px; opacity: .16; filter: blur(1.5px); animation-duration: 12s; animation-delay: -2s; }
+.ta-snow--5 { top: 55%;   left: 48%; width: 38px; height: 38px; opacity: .09; filter: blur(2px);   animation-duration: 14s; animation-delay: -8s; }
+@keyframes ta-snow-float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%      { transform: translate(12px, 18px) rotate(14deg); }
+}
+.ta-head { text-align: center; max-width: 760px; margin: 0 auto; }
+.ta-wrap .eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Sora'; font-weight: 700; font-size: 12px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--accent-bright);
+  padding: 8px 18px; border: 1px solid var(--line); border-radius: 999px;
+  background: rgba(255,255,255,.03);
+}
+.ta-wrap .eyebrow::before { content:""; width:6px; height:6px; border-radius:50%; background: var(--accent-bright); }
+h2.ta-title {
+  font-family: 'Sora'; font-weight: 800; letter-spacing: -.02em;
+  font-size: clamp(34px,5vw,52px); line-height: 1.05; margin: 22px 0 18px;
+  color: #fff;
+}
+.ta-lead { color: var(--muted); font-size: clamp(15px,1.6vw,17px); margin: 0 auto; max-width: 620px; }
+.ta-lead b { color: #cfe0f2; font-weight: 600; }
+
+.ta-wrap .stats {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line); border-radius: 16px;
+  overflow: hidden; margin: 48px auto 0; max-width: 920px;
+}
+.ta-wrap .stat {
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+  padding: 22px 20px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+}
+.ta-wrap .stat .n { font-family: 'Sora'; font-weight: 700; font-size: clamp(22px,3vw,30px); line-height: 1; color: #fff; }
+.ta-wrap .stat .n span { color: var(--accent-bright); }   /* dígitos em azul-claro */
+.ta-wrap .stat .l {
+  margin-top: 10px; font-size: 12.5px; color: var(--muted-2); letter-spacing: .02em;
+  line-height: 1.35; min-height: 2.7em;   /* reserva 2 linhas → cards na mesma altura */
+  display: flex; align-items: center; justify-content: center;   /* rótulo centrado na altura reservada */
+}
+
+.band { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center; margin-top: 64px; }
+.band h3 { font-family: 'Sora'; font-weight: 700; font-size: clamp(24px,3.2vw,32px); letter-spacing: -.01em; line-height: 1.12; margin: 0 0 8px; color: #fff; }
+.band .sub { color: var(--muted); font-size: 15px; margin: 0 0 26px; max-width: 420px; }
+
+.uf-list { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.uf-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; border: 1px solid var(--line); border-radius: 13px;
+  background: rgba(255,255,255,.03); cursor: default;
+  transition: border-color .25s, background .25s, transform .25s;
+}
+.uf-item:hover, .uf-item:focus-visible, .uf-item.active {
+  border-color: rgba(76,182,239,.55); background: rgba(46,151,212,.12); transform: translateX(4px); outline: none;
+}
+.uf-pin {
+  flex: none; width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
+  background: rgba(46,151,212,.14); color: var(--accent-bright); transition: background .25s, color .25s;
+}
+.uf-item:hover .uf-pin, .uf-item.active .uf-pin { background: var(--accent); color: #fff; }
+.uf-pin svg { width: 16px; height: 16px; }
+.uf-name { font-family: 'Sora'; font-weight: 600; font-size: 16px; letter-spacing: .005em; }
+.uf-tag { margin-left: auto; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-2); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; }
+
+.closing { margin-top: 28px; padding: 16px 18px; border-left: 2px solid var(--accent); color: var(--muted); font-size: 14.5px; background: rgba(255,255,255,.025); border-radius: 0 10px 10px 0; }
+.closing b { color: #cfe0f2; font-weight: 600; }
+
+.map-wrap { position: relative; }
+.map-wrap .ta-map-img { width: 100%; height: auto; display: block; }
+
+.ta-wrap .fade { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+.ta-wrap .fade.in { opacity: 1; transform: none; }
+@media (max-width: 860px) {
+  .ta-wrap { padding: 56px 18px 52px; }
+  .ta-wrap .stats { grid-template-columns: repeat(2,1fr); }
+  .band { grid-template-columns: 1fr; gap: 36px; }
+  .map-wrap { max-width: 380px; margin: 0 auto; }   /* texto em cima, mapa embaixo */
+}
+@media (prefers-reduced-motion: reduce) {
+  .ta-wrap .fade { opacity: 1; transform: none; }
+}
 /* flocos de neve decorativos (SVG branco), desfocados e flutuando devagar */
 .sobre-snow {
   position: absolute;
@@ -601,6 +748,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 #servicos { padding-top: var(--sp-8); }   /* respiro no topo da seção */
 .about-grid--servicos { margin-bottom: var(--sp-8); }   /* separa os cards de "Como trabalhamos" */
+
+/* "Por que escolher a Temp Air": fundo azul forte sólido, título branco (cards seguem brancos) */
+#diferenciais { background-color: var(--blue-deep); }
+#diferenciais .section-head h2 { color: #fff; }
 
 /* =========================================================
    PROCESSO EM 3 ETAPAS (traçado animado pelo scroll)
@@ -848,7 +999,15 @@ ul { margin: 0; padding: 0; list-style: none; }
   max-width: 480px;
 }
 @media (min-width: 768px) {
-  .atuacao-map { grid-template-columns: 0.95fr 1.05fr; gap: var(--sp-8); }
+  .atuacao-map {
+    grid-template-columns: auto auto;   /* colunas do tamanho do conteúdo */
+    justify-content: center;            /* conjunto centralizado */
+    gap: var(--sp-3);                   /* mapa e textos bem juntos */
+    align-items: end;                   /* texto alinhado à base do mapa */
+  }
+  .atuacao-map-info { order: 1; }   /* lista à esquerda */
+  .atuacao-map-fig { order: 2; }    /* mapa à direita */
+  .atuacao-map-img { max-width: 450px; }   /* mapa um pouco menor no pc */
 }
 
 .team-grid {
@@ -917,8 +1076,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .installs-track::-webkit-scrollbar-track { background: transparent; }
 
 .install-card {
-  flex: 0 0 290px;
-  max-width: 78vw;
+  flex: 0 0 350px;
+  max-width: 82vw;
   scroll-snap-align: start;
   background: #fff;
   border-radius: var(--radius-section);
@@ -1131,7 +1290,9 @@ ul { margin: 0; padding: 0; list-style: none; }
    FAIXA DE NÚMEROS (contadores)
    ========================================================= */
 .stats-band {
-  background-image: var(--grad-brand);   /* fundo azul (navy → teal) */
+  background-image:
+    radial-gradient(120% 90% at 80% 10%, #0d3f76 0%, rgba(13,63,118,0) 55%),
+    linear-gradient(180deg, #0a3461 0%, #072b52 100%);   /* mesmo fundo da seção do mapa */
   color: #fff;
   padding-block: var(--sp-8);
 }
@@ -1275,12 +1436,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   width: 60px; height: 60px;
   border-radius: 50%;
   background-image: var(--grad-whats);
-  box-shadow: 0 8px 22px rgba(46,125,50,.45);
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);   /* sombra neutra (sem o glow verde) */
   display: grid;
   place-items: center;
   transition: transform .2s ease, box-shadow .2s ease;
 }
-.whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 12px 30px rgba(46,125,50,.55); }
+.whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 6px 16px rgba(0,0,0,.28); }
 .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
 
 /* (Animação de nevasca de entrada removida — demais animações mantidas) */
@@ -1389,6 +1550,7 @@ ul { margin: 0; padding: 0; list-style: none; }
     margin-top: var(--sp-2);
     border-bottom: none;
   }
+  .main-nav .nav-whatsapp a { color: #fff; }   /* texto branco no botão do WhatsApp */
   .main-nav .btn { width: 100%; }
 
   .hero { padding: calc(var(--header-h) + var(--sp-4)) var(--sp-3) var(--sp-6); }
@@ -1401,6 +1563,7 @@ ul { margin: 0; padding: 0; list-style: none; }
     height: auto;
     margin: var(--sp-3) auto var(--sp-2);   /* ocupa o espaço onde ficava a faixa */
     transform: translateX(-20px);           /* 20px para a esquerda no mobile */
+    transform-origin: calc(50% + 20px) center;   /* zoom pivota no centro (compensa o deslocamento) */
   }
   .hero-badge { flex-wrap: wrap; justify-content: center; row-gap: 4px; }
   .hero-strip {
@@ -1441,6 +1604,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (max-width: 485px) {
   .hero-video-mob {
     transform: translateX(-10px);
+    transform-origin: calc(50% + 10px) center;   /* zoom pivota no centro (compensa o deslocamento) */
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 100%);
     mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 100%);
   }

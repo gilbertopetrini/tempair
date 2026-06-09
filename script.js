@@ -377,3 +377,23 @@
     }
   })();
 })();
+
+/* ---- Entrada (fade) da seção Área de atuação reformulada (.ta-wrap) ---- */
+(function () {
+  var fades = document.querySelectorAll('.ta-wrap .fade');
+  if (!fades.length) { return; }
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
+    for (var k = 0; k < fades.length; k++) { fades[k].classList.add('in'); }
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  fades.forEach(function (el, i) {
+    el.style.transitionDelay = (i * 0.08) + 's';
+    io.observe(el);
+  });
+})();
