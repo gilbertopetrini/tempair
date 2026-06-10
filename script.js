@@ -90,6 +90,7 @@
   if (track) {
     /* Lista de projetos realizados — edite/adicione itens aqui (b: selo, t: título, d: descrição) */
     var projetos = [
+      { imgs: ["midias/insren1.jpg", "midias/insren2.jpg", "midias/insren3.jpg", "midias/insren4.jpg"], b: "Residencial", t: "Residencial Anônimo — Niterói", d: "Instalação de ar condicionado residencial em Niterói. Projeto, fornecimento e montagem com acabamento limpo, sem sujeira e garantia total." },
       { img: "midias/Arsenal de Marinha - Concrejato.jpg", b: "VRF + Split + ar de precisão", t: "Marinha do Brasil — Arsenal de Marinha (EMGEPRON)", d: "Prédio 8. Ar condicionado de expansão direta com VRF e Split System, incluindo unidades de ar de precisão no Datacenter." },
       { vid: "midias/fairmountvideo.mp4", img: "midias/Hotel Fairmount.jpg", b: "Troca de chiller", t: "Hotel Fairmont Copacabana", d: "Substituição do chiller — o equipamento central que resfria a água gelada do sistema de climatização. Removemos a unidade antiga e instalamos um novo chiller mais eficiente, integrado à infraestrutura hidráulica e elétrica existente, elevando o desempenho, a confiabilidade e a eficiência energética da climatização do hotel." },
       { img: "midias/hospital.jpg", b: "Hospitalar · 26.300 m²", t: "Hospital Universitário UFU — Uberlândia", d: "Obra para IBEG Engenharia e Construção. Prédio hospitalar de 26.300 m². Projeto de ar condicionado e demais sistemas de VAC." },
@@ -187,6 +188,28 @@
               document.addEventListener('touchstart', resume, { once: true, passive: true });
               document.addEventListener('click', resume, { once: true });
             });
+          }
+        } else if (p.imgs && p.imgs.length) {
+          /* Slideshow automático em loop — 0,7s por foto, com crossfade */
+          cover.className = 'install-cover install-cover--photo';
+          var slidesWrap = document.createElement('div');
+          slidesWrap.className = 'cover-slides';
+          p.imgs.forEach(function (src, i) {
+            var slide = document.createElement('div');
+            slide.className = 'cover-slide' + (i === 0 ? ' is-active' : '');
+            slide.style.backgroundImage = 'url("' + src + '")';
+            slidesWrap.appendChild(slide);
+          });
+          cover.appendChild(slidesWrap);
+          if (!reduceMotion && p.imgs.length > 1) {
+            (function (slides) {
+              var idx = 0;
+              setInterval(function () {
+                slides[idx].classList.remove('is-active');
+                idx = (idx + 1) % slides.length;
+                slides[idx].classList.add('is-active');
+              }, 700);
+            })(slidesWrap.children);
           }
         } else if (p.img) {
           cover.className = 'install-cover install-cover--photo';

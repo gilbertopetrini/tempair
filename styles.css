@@ -409,10 +409,58 @@ ul { margin: 0; padding: 0; list-style: none; }
 .snow--2 { bottom: 10%; left: 4%; width: 70px; filter: blur(5px); color: var(--purple); opacity: .14; }
 .snow--3 { top: 45%; right: 22%; width: 46px; opacity: .16; }
 
+/* ===== Formas líquidas desfocadas nos cantos da Hero ===== */
+.hero-blob {
+  position: absolute;
+  z-index: 2;                 /* acima do gradiente branco, abaixo do conteúdo (z-index 3) */
+  pointer-events: none;
+  border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+  filter: blur(46px);
+  opacity: .55;
+  will-change: transform, border-radius;
+  animation: blob-morph 16s ease-in-out infinite, blob-drift 22s ease-in-out infinite;
+}
+.hero-blob--tl {
+  top: clamp(-160px, -9vw, -80px);
+  left: clamp(-160px, -9vw, -80px);
+  width: clamp(200px, 32vw, 540px);
+  height: clamp(200px, 32vw, 540px);
+  background: radial-gradient(circle at 35% 35%, #6cc3e6 0%, #2596be 46%, rgba(37,150,190,0) 72%);
+}
+.hero-blob--br {
+  right: clamp(-190px, -11vw, -100px);
+  bottom: clamp(-190px, -11vw, -100px);
+  width: clamp(240px, 40vw, 660px);
+  height: clamp(240px, 40vw, 660px);
+  background: radial-gradient(circle at 62% 62%, #4cb6ef 0%, #1f6fb0 48%, rgba(31,111,176,0) 74%);
+  animation-duration: 19s, 26s;
+  animation-delay: -6s, -9s;
+}
+@keyframes blob-morph {
+  0%, 100% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
+  25%      { border-radius: 58% 42% 38% 62% / 63% 37% 63% 37%; }
+  50%      { border-radius: 38% 62% 56% 44% / 49% 60% 40% 51%; }
+  75%      { border-radius: 50% 50% 33% 67% / 55% 38% 62% 45%; }
+}
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  33%      { transform: translate(16px, -12px) rotate(7deg) scale(1.06); }
+  66%      { transform: translate(-12px, 14px) rotate(-6deg) scale(0.96); }
+}
+/* Mobile: blobs menores, mais sutis e mais leves para o desempenho */
+@media (max-width: 600px) {
+  .hero-blob { filter: blur(34px); opacity: .48; }
+  .hero-blob--tl { width: 190px; height: 190px; top: -90px; left: -85px; }
+  .hero-blob--br { width: 230px; height: 230px; right: -110px; bottom: -100px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob { animation: none; }
+}
+
 /* ===== Conteúdo central da Hero ===== */
 .hero-inner {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
   max-width: 880px;
   margin: 0 auto;
@@ -1135,6 +1183,17 @@ h2.ta-title {
   z-index: 0;
   pointer-events: none;
 }
+/* Slideshow de capa: fotos em loop com crossfade */
+.cover-slides { position: absolute; inset: 0; z-index: 0; }
+.cover-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+.cover-slide.is-active { opacity: 1; z-index: 1; }
 .cover-badge {
   position: absolute;
   bottom: 12px; left: 12px;
@@ -1406,15 +1465,19 @@ h2.ta-title {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--sp-6);
+  align-items: start;
 }
 .site-footer h2, .site-footer h3 {
   color: #fff;
   font-family: var(--font-heading);
 }
-.footer-about h2 { font-size: 22px; margin-bottom: 14px; }
-.footer-about .brand-mark { margin-bottom: var(--sp-2); }
-.footer-col h3 { font-size: 16px; margin-bottom: 16px; text-transform: none; letter-spacing: .5px; }
-.footer-col p, .footer-col li { margin-bottom: 10px; color: #cfe0f3; }
+.footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.footer-logo { width: 46px; height: auto; display: block; flex-shrink: 0; }
+.footer-about h2 { font-size: 22px; margin: 0; line-height: 1; }
+.footer-about p { max-width: 42ch; margin: 0; line-height: 1.65; }
+.footer-col h3 { font-size: 16px; margin-bottom: 18px; text-transform: none; letter-spacing: .5px; }
+.footer-col p, .footer-col li { margin-bottom: 12px; color: #cfe0f3; line-height: 1.55; }
+.footer-col p:last-child { margin-bottom: 0; }
 .footer-col a { color: #cfe0f3; transition: color .2s ease; }
 .footer-col a:hover, .footer-col a:focus-visible { color: #7FD3E8; }
 .contact-line { display: flex; align-items: flex-start; gap: 10px; }
@@ -1486,7 +1549,7 @@ h2.ta-title {
   .cards { grid-template-columns: repeat(2, 1fr); }
   .features { grid-template-columns: repeat(2, 1fr); }
   .brands { grid-template-columns: repeat(4, 1fr); }
-  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; column-gap: var(--sp-8); }
   .hero-actions { align-items: center; }
   /* Remove o WhatsApp duplicado do menu (mantém apenas o CTA à direita) */
   .nav-whatsapp { display: none; }
