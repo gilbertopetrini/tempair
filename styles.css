@@ -1452,6 +1452,12 @@ h2.ta-title {
   max-width: 680px;
   margin: var(--sp-3) auto var(--sp-6);
 }
+.cta-band h1 {
+  color: rgba(255,255,255,.92);
+  font-size: 38px;
+  max-width: 680px;
+  margin: var(--sp-3) auto var(--sp-6);
+}
 
 /* =========================================================
    MARCAS
