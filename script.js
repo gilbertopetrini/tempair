@@ -60,6 +60,29 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---- Formas (blobs) da Hero: afastam-se e saem da tela ao rolar para baixo ----
+     Usa a propriedade `translate` (separada de `transform`), então compõe com a
+     animação líquida `blob-drift` sem conflito. */
+  (function () {
+    if (reduceMotion) { return; }
+    var blobTL = document.querySelector('.hero-blob--tl');
+    var blobBR = document.querySelector('.hero-blob--br');
+    if (!blobTL && !blobBR) { return; }
+
+    var ticking = false;
+    function apply() {
+      var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+      var d = y * 0.8;   /* fator de parallax: maior = saem mais rápido da tela */
+      if (blobTL) { blobTL.style.translate = d + 'px 0'; }      /* a da esquerda vai reto para a direita */
+      if (blobBR) { blobBR.style.translate = (-d) + 'px 0'; }   /* a da direita vai reto para a esquerda */
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(apply); }
+    }, { passive: true });
+    apply();
+  })();
+
   /* ---- Rolagem suave com compensação do header fixo ---- */
   var header = document.querySelector('.site-header');
 
@@ -90,9 +113,9 @@
   if (track) {
     /* Lista de projetos realizados — edite/adicione itens aqui (b: selo, t: título, d: descrição) */
     var projetos = [
-      { imgs: ["midias/insren1.jpg", "midias/insren2.jpg", "midias/insren3.jpg", "midias/insren4.jpg"], b: "Residencial", t: "Residencial Anônimo — Niterói", d: "Instalação de ar condicionado residencial em Niterói. Projeto, fornecimento e montagem com acabamento limpo, sem sujeira e garantia total." },
       { img: "midias/Arsenal de Marinha - Concrejato.jpg", b: "VRF + Split + ar de precisão", t: "Marinha do Brasil — Arsenal de Marinha (EMGEPRON)", d: "Prédio 8. Ar condicionado de expansão direta com VRF e Split System, incluindo unidades de ar de precisão no Datacenter." },
       { vid: "midias/fairmountvideo.mp4", img: "midias/Hotel Fairmount.jpg", b: "Troca de chiller", t: "Hotel Fairmont Copacabana", d: "Substituição do chiller — o equipamento central que resfria a água gelada do sistema de climatização. Removemos a unidade antiga e instalamos um novo chiller mais eficiente, integrado à infraestrutura hidráulica e elétrica existente, elevando o desempenho, a confiabilidade e a eficiência energética da climatização do hotel." },
+      { imgs: ["midias/insren1.jpg", "midias/insren2.jpg", "midias/insren3.jpg", "midias/insren4.jpg"], b: "Residencial", t: "Residencial — Niterói", d: "Instalação de ar condicionado residencial em Niterói. Projeto, fornecimento e montagem com acabamento limpo, sem sujeira e garantia total." },
       { img: "midias/hospital.jpg", b: "Hospitalar · 26.300 m²", t: "Hospital Universitário UFU — Uberlândia", d: "Obra para IBEG Engenharia e Construção. Prédio hospitalar de 26.300 m². Projeto de ar condicionado e demais sistemas de VAC." },
       { img: "midias/senac.jpg", b: "Água gelada · 450 TR", t: "Retrofit SENAC/RJ — Av. Presidente Vargas", d: "Prédio de 15 pavimentos. Projeto, fornecimento e montagem de ar condicionado, exaustão mecânica, pressurização de escada e ventilação de ar exterior (água gelada, 450 TR). Exaustão das coifas das cozinhas (30 coifas, 80.000 m³/h) e condicionadores de ar exterior especiais (100 TR)." },
       { b: "VRF Inverter · 300 TR", t: "Ampliação Colégio Marista — Barra da Tijuca", d: "Projeto, fornecimento e montagem de ar condicionado, exaustão mecânica e ar exterior para salas de aula, auditórios e teatro. Sistema VRF (inverter), 300 TR." },
@@ -208,7 +231,7 @@
                 slides[idx].classList.remove('is-active');
                 idx = (idx + 1) % slides.length;
                 slides[idx].classList.add('is-active');
-              }, 700);
+              }, 1000);
             })(slidesWrap.children);
           }
         } else if (p.img) {
