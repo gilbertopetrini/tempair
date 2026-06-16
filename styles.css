@@ -1430,6 +1430,8 @@ h2.ta-title {
 /* =========================================================
    FAIXA DE CONVERSÃO (CTA intermediário)
    ========================================================= */
+
+
 .cta-band {
   position: relative;
   background-image: var(--grad-dark);
@@ -1926,7 +1928,6 @@ h2.ta-title {
 .erros-cta {
   position: relative;
   text-align: center;
-  max-width: 740px;
   margin-inline: auto;
   padding: var(--sp-8) var(--sp-6);
   background: linear-gradient(145deg, #022b50 0%, #034077 45%, #0a5a8c 100%);
@@ -1957,12 +1958,11 @@ h2.ta-title {
 .erros-cta p {
   position: relative;
   z-index: 1;
-  font-size: clamp(17px, 2.2vw, 20px);
+  font-size: clamp(25px, 2.2vw, 20px);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.92);
   margin-bottom: var(--sp-4);
   line-height: 1.6;
-  max-width: 560px;
   margin-inline: auto;
 }
 .erros-cta .btn-primary {
